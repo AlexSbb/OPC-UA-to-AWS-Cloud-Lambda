@@ -5,7 +5,7 @@ import greengrasssdk
 ##############################
 ######### Settings ###########
 URL = "opc.tcp://Sbb-Book:48020"
-POLLING_INTERVAL = 5 
+POLLING_INTERVAL = 8 
 
 ##############################
 
@@ -20,7 +20,7 @@ GGclient = greengrasssdk.client("iot-data")
 def greengrass_send_MQTT_to_Server(var):
     try:       
         GGclient.publish(
-            topic="#",
+            topic="FromOPC",
             queueFullPolicy="AllOrException",
             payload="Value ={}".format(var)
         )
@@ -72,5 +72,7 @@ async def main():
             await asyncio.sleep(POLLING_INTERVAL)
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+asyncio.run(main())
+
+def function_handler(event, context):
+    return
